@@ -28,7 +28,7 @@ class TransactionForm extends StatelessWidget {
                   FlatButton(
                       textColor: Colors.purple,
                       onPressed: () => onSubmit(titleController.text,
-                          double.parse(valueController.text)),
+                          double.tryParse(valueController.text) ?? 0.0),
                       child: Text('Nova Transação')),
                 ],
               )

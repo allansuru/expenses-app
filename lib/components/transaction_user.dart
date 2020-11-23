@@ -22,7 +22,6 @@ class _TransactionUserState extends State<TransactionUser> {
   ];
 
   addTransaction(String title, double value) {
-    print(value);
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:expenses/models/transaction.dart';
 
+import 'components/transaction_graphic.dart';
 import 'components/transaction_list.dart';
 
 main() => runApp(ExpensesApp());
@@ -39,13 +40,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    // Transaction(
-    //     id: 't1',
-    //     title: 'Novo Tênis de corrida',
-    //     value: 310.86,
-    //     date: DateTime.now()),
-    // Transaction(
-    //     id: 't2', title: 'Conta de Luz', value: 200.40, date: DateTime.now()),
+    Transaction(
+        id: 't1',
+        title: 'Novo Tênis de corrida',
+        value: 310.86,
+        date: DateTime.now().subtract(Duration(days: 1))),
+    Transaction(
+        id: 't2',
+        title: 'Conta de Luz',
+        value: 200.40,
+        date: DateTime.now().subtract(Duration(days: 30))),
+    Transaction(
+        id: 't2',
+        title: 'Conta de Luz',
+        value: 200.40,
+        date: DateTime.now().subtract(Duration(days: 5))),
   ];
 
   addTransaction(String title, double value) {
@@ -60,6 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
 
     closeTransactionFormModal();
+  }
+
+  List<Transaction> get _lastSevenTransactions {
+    return _transactions
+        .where((element) =>
+            DateTime.now().subtract(Duration(days: 7)).isBefore(element.date))
+        .toList();
   }
 
   openTransactionFormModal(BuildContext context) {
@@ -89,12 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Card(
-                child: Text('Gráfico'),
-                color: Colors.blue,
-              ),
-            ),
+            TransactionGraphic(_lastSevenTransactions),
             TransactionList(_transactions),
           ],
         ),

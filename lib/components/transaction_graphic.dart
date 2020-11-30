@@ -1,3 +1,4 @@
+import 'package:expenses/components/transaction_chart_bar.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,9 +18,6 @@ class TransactionGraphic extends StatelessWidget {
         }
       });
 
-      print(DateFormat.E().format(weekDay)[0]);
-      print(totalSum);
-
       return {'day': DateFormat.E().format(weekDay)[0], 'value': totalSum};
     });
   }
@@ -30,14 +28,16 @@ class TransactionGraphic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactions);
     return Card(
       child: Row(
-        children: [
-          Text('Gráfico'),
-        ],
+        children: groupedTransactions.map((e) {
+          return TransactionChartBar(
+            day: e['day'],
+            value: e['value'],
+            percentage: 0.00,
+          );
+        }).toList(),
       ),
-      color: Colors.blue,
       elevation: 6,
       margin: EdgeInsets.all(20),
     );

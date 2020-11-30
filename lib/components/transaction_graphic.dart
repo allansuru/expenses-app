@@ -22,6 +22,10 @@ class TransactionGraphic extends StatelessWidget {
     });
   }
 
+  double get weekTotalValue {
+    return groupedTransactions.fold(0, (acc, item) => acc + item['value']);
+  }
+
   totalSumDay(recentTransaction) {}
 
   TransactionGraphic(this.recentTransaction);
@@ -29,17 +33,24 @@ class TransactionGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: groupedTransactions.map((e) {
-          return TransactionChartBar(
-            day: e['day'],
-            value: e['value'],
-            percentage: 0.00,
-          );
-        }).toList(),
-      ),
       elevation: 6,
       margin: EdgeInsets.all(20),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactions.map((e) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: TransactionChartBar(
+                day: e['day'],
+                value: e['value'],
+                percentage: (e['value'] as double) / weekTotalValue,
+              ),
+            );
+          }).toList(),
+        ),
+      ),
     );
   }
 }

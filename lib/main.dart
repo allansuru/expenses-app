@@ -22,7 +22,7 @@ class ExpensesApp extends StatelessWidget {
               headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
-                  fontWeight: FontWeight.w500)),
+                  fontWeight: FontWeight.bold)),
           appBarTheme: AppBarTheme(
               textTheme: ThemeData.light().textTheme.copyWith(
                   headline6: TextStyle(
@@ -55,6 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: 'Conta de Luz',
         value: 200.40,
         date: DateTime.now().subtract(Duration(days: 5))),
+    Transaction(
+        id: 't3',
+        title: 'Fatura do Cartão de crédito',
+        value: 1500,
+        date: DateTime.now().subtract(Duration(days: 2))),
+    Transaction(id: 't4', title: 'Ubber', value: 99, date: DateTime.now()),
   ];
 
   addTransaction(String title, double value) {

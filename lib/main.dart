@@ -19,6 +19,8 @@ class ExpensesApp extends StatelessWidget {
           accentColor: Colors.amber,
           fontFamily: 'Quicksand',
           textTheme: ThemeData.light().textTheme.copyWith(
+              button:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               headline6: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 18,
@@ -63,12 +65,12 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(id: 't4', title: 'Ubber', value: 99, date: DateTime.now()),
   ];
 
-  addTransaction(String title, double value) {
+  addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
         value: value,
-        date: DateTime.now());
+        date: date);
 
     setState(() {
       _transactions.add(newTransaction);

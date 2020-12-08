@@ -13,18 +13,17 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
-  DateTime _selectedDate;
+  DateTime _selectedDate = DateTime.now();
 
   _submitForm() {
     final String title = _titleController.text;
     final double value = double.tryParse(_valueController.text ?? 0.0);
-    final DateTime date = _selectedDate;
 
-    if (title.isEmpty || value <= 0.0 || date == null) {
+    if (title.isEmpty || value <= 0.0 || _selectedDate == null) {
       return;
     }
 
-    widget.onSubmit(title, value, date);
+    widget.onSubmit(title, value, _selectedDate);
   }
 
   _showDatePicker() async {

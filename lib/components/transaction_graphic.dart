@@ -45,7 +45,9 @@ class TransactionGraphic extends StatelessWidget {
               child: TransactionChartBar(
                 day: e['day'],
                 value: e['value'],
-                percentage: (e['value'] as double) / weekTotalValue,
+                percentage: weekTotalValue == 0
+                    ? 0
+                    : (e['value'] as double) / weekTotalValue,
               ),
             );
           }).toList(),

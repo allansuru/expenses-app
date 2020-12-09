@@ -64,6 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
+  deleteTransaction(Transaction transaction) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == transaction.id);
+    });
+  }
+
   openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
         context: context,
@@ -92,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TransactionGraphic(_lastSevenTransactions),
-            TransactionList(_transactions),
+            TransactionList(_transactions, deleteTransaction),
           ],
         ),
       ),

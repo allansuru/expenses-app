@@ -6,7 +6,52 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final void Function(Transaction transaction) onDelete;
 
-  TransactionList(this.transactions, this.onDelete);
+  TransactionList(
+    this.transactions,
+    this.onDelete,
+  );
+
+  Future<void> _showDeleteDialog(context, transaction) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Deletar'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Deseja deletar o item abaixo?'),
+                Text(
+                  transaction.title,
+                  style: TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Deletar'),
+              onPressed: () {
+                deleteHandler(context, transaction);
+              },
+            ),
+            TextButton(
+              child: Text('voltar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  deleteHandler(context, transaction) {
+    Navigator.of(context).pop();
+    return onDelete(transaction);
+  }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -48,7 +93,7 @@ class TransactionList extends StatelessWidget {
                       subtitle: Text(DateFormat('d MMM y').format(tr.date)),
                       trailing: IconButton(
                           icon: Icon(Icons.delete_forever),
-                          onPressed: () => onDelete(tr)),
+                          onPressed: () => _showDeleteDialog(context, tr)),
                     ),
                   );
                 }),

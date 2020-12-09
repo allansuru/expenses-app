@@ -17,6 +17,7 @@ class TransactionList extends StatelessWidget {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
+          elevation: 4,
           title: Text('Deletar'),
           content: SingleChildScrollView(
             child: ListBody(
@@ -92,7 +93,8 @@ class TransactionList extends StatelessWidget {
                       ),
                       subtitle: Text(DateFormat('d MMM y').format(tr.date)),
                       trailing: IconButton(
-                          icon: Icon(Icons.delete_forever),
+                          icon: Icon(Icons.delete),
+                          color: Theme.of(context).errorColor,
                           onPressed: () => _showDeleteDialog(context, tr)),
                     ),
                   );

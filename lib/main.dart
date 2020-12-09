@@ -43,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
 
-  addTransaction(String title, double value, DateTime date) {
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
         id: Random().nextDouble().toString(),
         title: title,
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  deleteTransaction(Transaction transaction) {
+  _deleteTransaction(Transaction transaction) {
     setState(() {
       _transactions.removeWhere((element) => element.id == transaction.id);
     });
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TransactionForm(addTransaction);
+          return TransactionForm(_addTransaction);
         });
   }
 
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TransactionGraphic(_lastSevenTransactions),
-            TransactionList(_transactions, deleteTransaction),
+            TransactionList(_transactions, _deleteTransaction),
           ],
         ),
       ),

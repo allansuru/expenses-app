@@ -112,7 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   AppBar mountAppBar(BuildContext context) {
     return AppBar(
-      title: Text('Despesas Pessoais'),
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(fontSize: 20 * MediaQuery.of(context).textScaleFactor),
+      ),
       actions: [
         IconButton(
             icon: Icon(Icons.add),

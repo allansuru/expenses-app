@@ -84,21 +84,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    AppBar appBar = mountAppBar(context);
+    double availableHeight = _availableHeight(context, appBar);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Despesas Pessoais'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => openTransactionFormModal(context))
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TransactionGraphic(_lastSevenTransactions),
-            TransactionList(_transactions, _deleteTransaction),
+            Container(
+                height: availableHeight * 0.3,
+                child: TransactionGraphic(_lastSevenTransactions)),
+            Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
       ),
@@ -108,5 +108,22 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+  }
+
+  AppBar mountAppBar(BuildContext context) {
+    return AppBar(
+      title: Text('Despesas Pessoais'),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => openTransactionFormModal(context))
+      ],
+    );
+  }
+
+  double _availableHeight(BuildContext context, AppBar appBar) {
+    return MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
   }
 }

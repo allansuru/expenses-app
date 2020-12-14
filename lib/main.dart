@@ -12,6 +12,7 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
@@ -42,6 +43,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
@@ -93,12 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-                height: availableHeight * 0.3,
-                child: TransactionGraphic(_lastSevenTransactions)),
-            Container(
-                height: availableHeight * 0.7,
-                child: TransactionList(_transactions, _deleteTransaction)),
+            _showChart
+                ? Container(
+                    height: availableHeight * 0.4,
+                    child: TransactionGraphic(_lastSevenTransactions))
+                : Container(
+                    height: availableHeight * 0.6,
+                    child: TransactionList(_transactions, _deleteTransaction)),
           ],
         ),
       ),
@@ -111,15 +114,24 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   AppBar mountAppBar(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return AppBar(
       title: Text(
         'Despesas Pessoais',
         style: TextStyle(fontSize: 20 * MediaQuery.of(context).textScaleFactor),
       ),
       actions: [
+        if (isLandscape)
+          IconButton(
+              icon: Icon(_showChart ? Icons.list : Icons.show_chart),
+              onPressed: () => setState(() {
+                    _showChart = !_showChart;
+                  })),
         IconButton(
             icon: Icon(Icons.add),
-            onPressed: () => openTransactionFormModal(context))
+            onPressed: () => openTransactionFormModal(context)),
       ],
     );
   }

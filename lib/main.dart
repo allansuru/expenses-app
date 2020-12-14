@@ -86,7 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = mountAppBar(context);
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    AppBar appBar = mountAppBar(context, isLandscape);
     double availableHeight = _availableHeight(context, appBar);
 
     return Scaffold(
@@ -95,13 +98,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _showChart
-                ? Container(
-                    height: availableHeight * 0.4,
-                    child: TransactionGraphic(_lastSevenTransactions))
-                : Container(
-                    height: availableHeight * 0.6,
-                    child: TransactionList(_transactions, _deleteTransaction)),
+            if (!isLandscape)
+              Container(
+                  height: availableHeight * 0.4,
+                  child: TransactionGraphic(_lastSevenTransactions)),
+            if (!isLandscape)
+              Container(
+                  height: availableHeight * 0.6,
+                  child: TransactionList(_transactions, _deleteTransaction)),
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: availableHeight * 0.6,
+                      child: TransactionList(_transactions, _deleteTransaction))
+                  : Container(
+                      height: availableHeight * (isLandscape ? 0.8 : 0.4),
+                      child: TransactionGraphic(_lastSevenTransactions)),
           ],
         ),
       ),
@@ -113,10 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  AppBar mountAppBar(BuildContext context) {
-    bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
+  AppBar mountAppBar(BuildContext context, bool isLandscape) {
     return AppBar(
       title: Text(
         'Despesas Pessoais',

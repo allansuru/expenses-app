@@ -22,7 +22,7 @@ class TransactionChartBar extends StatelessWidget {
               height: constraints.maxHeight * 0.05,
             ),
             Container(
-              height: constraints.maxHeight * 0.4,
+              height: constraints.maxHeight * 0.5,
               width: 10,
               child: Stack(
                 alignment: Alignment.bottomCenter,

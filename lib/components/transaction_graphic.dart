@@ -34,7 +34,7 @@ class TransactionGraphic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.all(18),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Row(

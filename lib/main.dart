@@ -74,11 +74,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  openTransactionFormModal(BuildContext context) {
+  openTransactionFormModal(BuildContext context, bool isLandscape) {
     showModalBottomSheet(
         context: context,
         builder: (_) {
-          return TransactionForm(_addTransaction);
+          return FractionallySizedBox(
+            child: TransactionForm(_addTransaction),
+            heightFactor: isLandscape ? 1 : 0.5,
+          );
         });
   }
 
@@ -121,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 })),
       _getIconButton(
           Platform.isIOS ? CupertinoIcons.add_circled_solid : Icons.add,
-          () => openTransactionFormModal(context)),
+          () => openTransactionFormModal(context, isLandscape)),
     ];
 
     final PreferredSizeWidget appBar = Platform.isIOS
@@ -173,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
             body: bodyPage,
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),
-              onPressed: () => openTransactionFormModal(context),
+              onPressed: () => openTransactionFormModal(context, isLandscape),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,

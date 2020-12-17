@@ -87,12 +87,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _getIconButton(IconData icon, Function fn) {
-    return Platform.isIOS
-        ? GestureDetector(
-            onTap: fn,
-            child: Icon(icon),
-          )
-        : IconButton(icon: Icon(icon), onPressed: fn);
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: Platform.isIOS
+          ? GestureDetector(
+              onTap: fn,
+              child: Icon(icon),
+            )
+          : IconButton(icon: Icon(icon), onPressed: fn),
+    );
   }
 
   @override
@@ -108,11 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
     final actions = [
       if (isLandscape)
         _getIconButton(
-            _showChart ? Icons.list : Icons.show_chart,
+            _showChart
+                ? (Platform.isIOS ? Icons.list : CupertinoIcons.list_bullet)
+                : (Platform.isIOS
+                    ? CupertinoIcons.chart_bar
+                    : Icons.show_chart),
             () => setState(() {
                   _showChart = !_showChart;
                 })),
-      _getIconButton(Platform.isIOS ? CupertinoIcons.add : Icons.add,
+      _getIconButton(
+          Platform.isIOS ? CupertinoIcons.add_circled_solid : Icons.add,
           () => openTransactionFormModal(context)),
     ];
 
@@ -130,7 +138,8 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         mediaQuery.padding.top;
 
-    final bodyPage = SingleChildScrollView(
+    final bodyPage = SafeArea(
+        child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -152,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TransactionGraphic(_lastSevenTransactions)),
         ],
       ),
-    );
+    ));
 
     return Platform.isIOS
         ? CupertinoPageScaffold(

@@ -39,7 +39,8 @@ class _TransactionFormState extends State<TransactionForm> {
   }
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => SafeArea(
+          child: Column(
         children: [
           Card(
             elevation: 5,
@@ -61,7 +62,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     decoration: InputDecoration(labelText: 'Valor (R\$)'),
                   ),
                   Container(
-                    height: 50,
+                    height: 20,
                     child: Row(
                       children: [
                         Expanded(
@@ -99,5 +100,5 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
           ),
         ],
-      );
+      ));
 }

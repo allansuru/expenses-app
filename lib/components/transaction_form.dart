@@ -56,11 +56,13 @@ class _TransactionFormState extends State<TransactionForm> {
                     controller: _titleController,
                     title: 'Título',
                     submit: _submitForm(),
+                    isNumeric: false,
                   ),
                   AdaptativeTextField(
                     controller: _valueController,
                     title: 'Valor (R\$)',
                     submit: _submitForm(),
+                    isNumeric: true,
                   ),
                   Container(
                     height: 21,

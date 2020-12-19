@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import 'adaptative_button.dart';
+import 'adaptative_date_picker.dart';
 import 'adaptative_textField.dart';
 
 class TransactionForm extends StatefulWidget {
@@ -29,74 +28,49 @@ class _TransactionFormState extends State<TransactionForm> {
     widget.onSubmit(title, value, _selectedDate);
   }
 
-  _showDatePicker() async {
-    _selectedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2019),
-        lastDate: DateTime.now());
-
+  onDateChanged(newDate) {
     setState(() {
-      _selectedDate = _selectedDate;
+      _selectedDate = newDate;
     });
   }
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-          child: Column(
-        children: [
-          Card(
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 20, right: 10, left: 10, bottom: 15),
-              child: Column(
-                children: [
-                  AdaptativeTextField(
-                    controller: _titleController,
-                    title: 'Título',
-                    submit: _submitForm(),
-                    isNumeric: false,
-                  ),
-                  AdaptativeTextField(
-                    controller: _valueController,
-                    title: 'Valor (R\$)',
-                    submit: _submitForm(),
-                    isNumeric: true,
-                  ),
-                  Container(
-                    height: 21,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            _selectedDate == null
-                                ? 'Nenhuma data selecionada!'
-                                : 'Data Selecionada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
-                          ),
-                        ),
-                        FlatButton(
-                          textColor: Theme.of(context).primaryColor,
-                          onPressed: _showDatePicker,
-                          child: Text(
-                            'Selecionar Data',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      AdaptativeButton(
-                          title: 'Nova Transação', onPressed: _submitForm)
-                    ],
-                  )
-                ],
-              ),
+  Widget build(BuildContext context) => SingleChildScrollView(
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: 10,
+            ),
+            child: Column(
+              children: [
+                AdaptativeTextField(
+                  controller: _titleController,
+                  title: 'Título',
+                  submit: _submitForm(),
+                  isNumeric: false,
+                ),
+                AdaptativeTextField(
+                  controller: _valueController,
+                  title: 'Valor (R\$)',
+                  submit: _submitForm(),
+                  isNumeric: true,
+                ),
+                AdaptativeDatePicker(
+                    selectedDate: _selectedDate, onDateChanged: onDateChanged),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    AdaptativeButton(
+                        title: 'Nova Transação', onPressed: _submitForm)
+                  ],
+                )
+              ],
             ),
           ),
-        ],
-      ));
+        ),
+      );
 }

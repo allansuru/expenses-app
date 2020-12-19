@@ -76,13 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   openTransactionFormModal(BuildContext context, bool isLandscape) {
     showModalBottomSheet(
-        context: context,
-        builder: (_) {
-          return FractionallySizedBox(
-            child: TransactionForm(_addTransaction),
-            heightFactor: isLandscape ? 1 : 0.5,
-          );
-        });
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransaction);
+      },
+    );
   }
 
   closeTransactionFormModal() {

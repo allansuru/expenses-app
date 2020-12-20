@@ -4,7 +4,9 @@ class TransactionChartBar extends StatelessWidget {
   final String day;
   final double value;
   final double percentage;
-  TransactionChartBar({this.day, this.value, this.percentage});
+
+  const TransactionChartBar({this.day, this.value, this.percentage});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

@@ -6,7 +6,7 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final void Function(Transaction transaction) onDelete;
 
-  TransactionList(
+  const TransactionList(
     this.transactions,
     this.onDelete,
   );
@@ -18,7 +18,7 @@ class TransactionList extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           elevation: 4,
-          title: Text('Deletar'),
+          title: const Text('Deletar'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -80,7 +80,7 @@ class TransactionList extends StatelessWidget {
             final tr = transactions[index];
             return Card(
               elevation: 5,
-              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 30,
@@ -97,8 +97,8 @@ class TransactionList extends StatelessWidget {
                 trailing: MediaQuery.of(context).size.width > 480
                     ? FlatButton.icon(
                         onPressed: () => _showDeleteDialog(context, tr),
-                        icon: Icon(Icons.delete),
-                        label: Text('Excluir'),
+                        icon: const Icon(Icons.delete),
+                        label: const Text('Excluir'),
                         textColor: Theme.of(context).errorColor,
                       )
                     : IconButton(

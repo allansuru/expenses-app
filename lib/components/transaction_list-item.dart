@@ -7,7 +7,7 @@ class TransactionListItem extends StatelessWidget {
   final Function(BuildContext context, Transaction transaction)
       showDeleteDialog;
 
-  TransactionListItem({this.transaction, this.showDeleteDialog});
+  const TransactionListItem({this.transaction, this.showDeleteDialog});
 
   @override
   Widget build(BuildContext context) {

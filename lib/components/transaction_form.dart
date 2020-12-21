@@ -34,7 +34,7 @@ class _TransactionFormState extends State<TransactionForm> {
   }
 
   @override
-  void didUpdateWidget(Widget oldWidget) {
+  void didUpdateWidget(TransactionForm oldWidget) {
     super.didUpdateWidget(oldWidget);
     print('didUpdateWidget _TransactionFormState');
   }
